@@ -10,17 +10,22 @@ import OponentThrowCardAnimation from '../OponentThrowCardAnimation';
 import { Container, CardsContainer } from './styles';
 
 const OponentCards = () => {
-  const [
-    oponentCardsNumber,
-    oponentThrowedCard,
-    setOponentThrowedCard,
-    setCardStack,
-  ] = useContextSelector(GameContext, state => [
-    state.oponentCardsNumber,
-    state.oponentThrowedCard,
-    state.setOponentThrowedCard,
-    state.setCardStack,
-  ]);
+  const oponentCardsNumber = useContextSelector(
+    GameContext,
+    state => state.oponentCardsNumber,
+  );
+  const oponentThrowedCard = useContextSelector(
+    GameContext,
+    state => state.oponentThrowedCard,
+  );
+  const setOponentThrowedCard = useContextSelector(
+    GameContext,
+    state => state.setOponentThrowedCard,
+  );
+  const setCardStack = useContextSelector(
+    GameContext,
+    state => state.setCardStack,
+  );
 
   const onAnimationEnd = () => {
     setCardStack(cardStackState => [

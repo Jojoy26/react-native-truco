@@ -39,6 +39,7 @@ export const GameUIProvider = ({ children }: Props) => {
 
   useEffect(() => {
     socket.current.on('attRoundPoints', (arg: PointsInRound[]) => {
+      console.log('attRoundPoints');
       // I'm subtracting the playerId - 1 because there are two players one with id 1 and one with id 2
       // Then I'm getting the correct index in array
       setPointsInRound({
@@ -47,15 +48,17 @@ export const GameUIProvider = ({ children }: Props) => {
       });
     });
     socket.current.on('attCurrentPoints', (arg: PointsInMatch[]) => {
+      console.log('attCurrentPoints');
       setPointsInMatch({
         playerPoints: arg[playerId.current - 1].pointsInMatch,
         oponentPoints: arg[playerId.current === 1 ? 0 : 1].pointsInMatch,
       });
     });
     socket.current.on('message', (arg: string) => {
+      console.log('message');
       setMessage(arg);
     });
-  });
+  }, []);
 
   return (
     <GameUIContext.Provider value={{ pointsInRound, message, pointsInMatch }}>

@@ -11,23 +11,28 @@ import CardAnimation from '../CardAnimation';
 import { Container } from './styles';
 
 const CardPack = () => {
-  const [
-    setOponentCardsNumber,
-    setPlayerCards,
-    currentPlayerId,
-    playerId,
-    blankCards,
-    setBlankCards,
-    playerCardsRef,
-  ] = useContextSelector(GameContext, state => [
-    state.setOponentCardsNumber,
-    state.setPlayerCards,
-    state.currentPlayerId,
-    state.playerId,
-    state.blankCards,
-    state.setBlankCards,
-    state.playerCardsRef,
-  ]);
+  const setOponentCardsNumber = useContextSelector(
+    GameContext,
+    state => state.setOponentCardsNumber,
+  );
+  const setPlayerCards = useContextSelector(
+    GameContext,
+    state => state.setPlayerCards,
+  );
+  const currentPlayerId = useContextSelector(
+    GameContext,
+    state => state.currentPlayerId,
+  );
+  const playerId = useContextSelector(GameContext, state => state.playerId);
+  const blankCards = useContextSelector(GameContext, state => state.blankCards);
+  const setBlankCards = useContextSelector(
+    GameContext,
+    state => state.setBlankCards,
+  );
+  const playerCardsRef = useContextSelector(
+    GameContext,
+    state => state.playerCardsRef,
+  );
 
   // Add card to oponentCards or playerCards when each card animation finish
   const onEnd = (isMine: boolean, _index: number) => {

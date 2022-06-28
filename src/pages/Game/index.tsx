@@ -16,13 +16,17 @@ const Game = () => {
   return (
     <SocketProvider>
       <GameProvider>
-        <Container colors={['#0A421C', '#0A4B1F']}>
-          <CardStack />
-          <CardPack />
-          <OponentCards />
-          <PlayerCards />
-          <TrucoButton />
-        </Container>
+        <GameUIProvider>
+          <Container colors={['#0A421C', '#0A4B1F']}>
+            <CardStack />
+            <CardPack />
+            <OponentCards />
+            <PlayerCards />
+            <TrucoButton />
+            <PlayerPointsUI />
+            <MessageUI />
+          </Container>
+        </GameUIProvider>
       </GameProvider>
     </SocketProvider>
   );

@@ -27,13 +27,17 @@ type Props = {
 };
 
 const FlipCard = ({ index }: Props) => {
-  const [playerCards, throwCard, currentPlayerId, playerId] =
-    useContextSelector(GameContext, state => [
-      state.playerCards,
-      state.throwCard,
-      state.currentPlayerId,
-      state.playerId,
-    ]);
+  const playerCards = useContextSelector(
+    GameContext,
+    state => state.playerCards,
+  );
+  const throwCard = useContextSelector(GameContext, state => state.throwCard);
+  const currentPlayerId = useContextSelector(
+    GameContext,
+    state => state.currentPlayerId,
+  );
+  const playerId = useContextSelector(GameContext, state => state.playerId);
+
   const throwCardAnimationRef = useRef(null);
 
   const flipAnimation = useSharedValue(0);
