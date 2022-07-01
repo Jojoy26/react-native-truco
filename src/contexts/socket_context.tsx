@@ -34,7 +34,7 @@ export const SocketProvider = ({ children, roomName }: Props) => {
   const [hasError, setHasError] = useState<string | null>(null);
 
   useEffect((): any => {
-    socket.current = io('http://192.168.0.106:3333');
+    socket.current = io('https://truco-backend-app.herokuapp.com/');
     socket.current.on('connect', () => {
       socket.current.emit('joinRoom', room.current);
     });
