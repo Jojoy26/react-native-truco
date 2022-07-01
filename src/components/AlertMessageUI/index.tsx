@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { Dimensions } from 'react-native';
 import {
   Extrapolate,
   interpolate,
   runOnJS,
+  runOnUI,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -12,17 +14,22 @@ import { GameUIContext } from '../../contexts/gameUI_context';
 
 import { AnimatedText } from './styles';
 
-const MessageUI = () => {
-  const message = useContextSelector(GameUIContext, state => state.message);
-
-  const setMessage = useContextSelector(
+const AlertMessageUI = () => {
+  const alertMessage = useContextSelector(
     GameUIContext,
-    state => state.setMessage,
+    state => state.alertMessage,
+  );
+
+  const setAlertMessage = useContextSelector(
+    GameUIContext,
+    state => state.setAlertMessage,
   );
 
   const isMounted = useRef(true);
 
   const animation = useSharedValue(0);
+
+  const height = Dimensions.get('screen').height;
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -31,36 +38,44 @@ const MessageUI = () => {
           scale: interpolate(
             animation.value,
             [0, 1],
-            [0, 1],
+            [0.6, 1],
             Extrapolate.CLAMP,
           ),
         },
       ],
       opacity: interpolate(animation.value, [0, 1], [0, 1], Extrapolate.CLAMP),
+      bottom: interpolate(
+        animation.value,
+        [0, 1],
+        [0, height * 0.3],
+        Extrapolate.CLAMP,
+      ),
     };
   });
 
-  const setMessageMiddleware = () => {
+  const setAlertMessageMiddleware = () => {
     if (isMounted.current) {
-      setMessage({ message: '' });
+      setAlertMessage({ message: '' });
     }
   };
 
   useEffect((): any => {
-    if (message.message !== '') {
+    if (alertMessage !== null) {
       animation.value = withTiming(1);
       setTimeout(() => {
         animation.value = withTiming(0, undefined, isFinished => {
           if (isFinished) {
-            runOnJS(setMessageMiddleware);
+            runOnJS(setAlertMessageMiddleware);
           }
         });
-      }, 1200);
+      }, 2000);
     }
     return () => (isMounted.current = false);
-  }, [message]);
+  }, [alertMessage]);
 
-  return <AnimatedText style={animatedStyle}>{message.message}</AnimatedText>;
+  return (
+    <AnimatedText style={animatedStyle}>{alertMessage.message}</AnimatedText>
+  );
 };
 
-export default MessageUI;
+export default AlertMessageUI;

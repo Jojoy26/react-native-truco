@@ -4,7 +4,7 @@ import { GameUIContext } from '../../contexts/gameUI_context';
 
 import { Container, Points, MatchPoints } from './styles';
 
-const PlayerPointsUI = () => {
+const OponentPointsUI = () => {
   const pointsInRound = useContextSelector(
     GameUIContext,
     state => state.pointsInRound,
@@ -13,12 +13,13 @@ const PlayerPointsUI = () => {
     GameUIContext,
     state => state.pointsInMatch,
   );
+
   return (
     <Container>
-      <Points>{pointsInRound.playerPoints}</Points>
-      <MatchPoints>{pointsInMatch.playerPoints}</MatchPoints>
+      <MatchPoints>{pointsInMatch.oponentPoints}</MatchPoints>
+      <Points>{pointsInRound.oponentPoints}</Points>
     </Container>
   );
 };
 
-export default PlayerPointsUI;
+export default OponentPointsUI;

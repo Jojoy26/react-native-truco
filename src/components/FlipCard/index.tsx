@@ -83,6 +83,10 @@ const FlipCard = ({ index }: Props) => {
     if (currentPlayerId.current !== playerId.current) {
       return;
     }
+
+    // Changing currentPlayerId to the player not throw another card before the action arrive to server and change player
+    currentPlayerId.current = -10;
+
     throwCardAnimationRef.current.setTranslateXGoal();
     throwCardAnimation.value = withTiming(1, undefined, isFinished => {
       if (isFinished) {

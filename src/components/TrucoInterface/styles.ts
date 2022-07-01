@@ -21,6 +21,7 @@ export const Row = styled.View`
   flex-direction: row;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 30px;
 `;
 
 export const AcepptButton = styled.TouchableOpacity`
